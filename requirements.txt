@@ -1,7 +1,7 @@
 autopep8==2.0.2
 certifi==2023.5.7
 charset-normalizer==3.2.0
-greenlet==2.0.2
+greenlet==3.2.4
 idna==3.4
 mypy==1.4.1
 mypy-extensions==1.0.0

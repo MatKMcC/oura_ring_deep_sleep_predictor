@@ -1,4 +1,5 @@
 # built-in libraries
+from dotenv import load_dotenv
 import configparser
 import logging
 import os
@@ -12,11 +13,11 @@ from sqlalchemy import Column, Date, Engine, Integer, MetaData, Table, create_en
 
 
 def getResponseFromAPI(
-    API_URl: str, PERSONAL_TOKEN: str, myParams: Dict
+    API_URl: str, ACCESS_TOKEN: str, myParams: Dict
 ) -> Optional[Dict]:
     # Optional: Define headers or authentication tokens if required by the API
     headers = {
-        "Authorization": f"Bearer {PERSONAL_TOKEN}",
+        "Authorization": f"Bearer {ACCESS_TOKEN}",
         "Content-Type": "application/json",
     }
 
@@ -169,7 +170,7 @@ def getTable(config, meta):
 
 def getSleepData(config, myParams):
     sleepData = getResponseFromAPI(
-        config["oura"]["sleep_api_url"], config["user"]["personal_token"], myParams
+        config["oura"]["sleep_api_url"], config["user"]["access_token"], myParams
     )
     sleepData = sleepData.get("data")
     return sleepData
@@ -178,7 +179,7 @@ def getSleepData(config, myParams):
 def getMoreSleepData(config, myParams):
     moreSleepData = getResponseFromAPI(
         config["oura"]["sleep_routes_api_url"],
-        config["user"]["personal_token"],
+        config["user"]["access_token"],
         myParams,
     )
     moreSleepData = moreSleepData.get("data")
@@ -193,9 +194,12 @@ def setupLogging():
 
 def main():
     # Setup configuration file
-    config_path = os.environ["OURA_SLEEP_CONFIG_PATH"]
+    load_dotenv()
+    CONFIG_PATH = os.getenv("OURA_SLEEP_CONFIG_PATH")
     config = configparser.ConfigParser()
-    config.read(config_path)
+    config.read(CONFIG_PATH)
+    config.set('user', 'refresh_token', os.getenv("REFRESH_TOKEN"))
+    config.set('user', 'access_token', os.getenv("ACCESS_TOKEN"))
     if not checkConfig(config):
         print("Configuration file is invalid, check file and try again. Exiting")
         return

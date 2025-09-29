@@ -1,18 +1,13 @@
-# Oura sleep data visualiser
+# ML Operations: Oura Deep Sleep Predictor
 
-This is a Python project that allows you to pull your data from the Oura API using a personal access token, save it to a local PostgreSQL database, then use tools like Grafana to revisualise it. Currently the data being scraped is:
+This is the final project for the ML Operations course. The goal of this course is to set up end to end ML pipelines
+using various industry best practices. This project covers data ingestion, data processing, model training, model evaluation,
+prediction serving and prediction monitoring. All services should be hosting in GPC. 
 
-- Sleep score including score breakdown (e.g. efficiency, latency, etc)
-- Sleep durations for:
-  - Total time in bed duration
-  - Total sleep duration
-  - REM sleep duration
-  - Deep sleep duration
- 
+This project was forked from Sam Robert's Oura Ring Visualiser: https://github.com/sam-roberts/oura-data-visualiser/blob/main/app-preview.jpg
 
-Although last change was made approx 3 months ago - script should be working as of this edit, October 2023. 
-
-![Example of visualising your sleep data with this tool](/app-preview.jpg)
+# The following README is copied over from forked repository
+***
 
 ## Limitations and warnings
 
